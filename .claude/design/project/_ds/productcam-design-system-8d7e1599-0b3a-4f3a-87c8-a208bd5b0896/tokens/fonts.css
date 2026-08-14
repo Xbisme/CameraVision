@@ -1,0 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+/* Manrope + IBM Plex Mono are served from the Google Fonts CDN (both ship the
+   vietnamese subset, required for ProductCam's Vietnamese UI copy).
+   No brand font binaries were supplied with the brief - see readme.md > Typography. */
+:root{--font-ui:"Manrope","Be Vietnam Pro","Segoe UI",system-ui,sans-serif;--font-mono:"IBM Plex Mono","SFMono-Regular",ui-monospace,monospace}

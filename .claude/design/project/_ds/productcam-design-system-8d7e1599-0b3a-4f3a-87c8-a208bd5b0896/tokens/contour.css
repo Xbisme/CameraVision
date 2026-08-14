@@ -1,0 +1,28 @@
+/* THE SIGNATURE LAYER. The contour is drawn twice: a dark halo underneath and a
+   mint core on top, so it survives any background the camera happens to see
+   (white studio paper, black leather, mint packaging, backlit window).
+   State is carried by dash + motion, not by hue alone:
+     scanning  = marching dashes
+     locked    = solid core + soft glow
+     review    = amber dotted (complex edge: fur / hair / glass)          */
+:root{
+--contour-core:var(--mint-500);--contour-core-lock:#EAFFFA;--contour-halo:rgba(4,9,15,.62);
+--contour-review:var(--amber-500);--contour-error:var(--coral-500);
+--contour-w-core:2.5px;--contour-w-halo:6px;--contour-w-core-lock:3px;
+--contour-dash-scan:12 9;/* @kind other */
+--contour-dash-review:2 7;/* @kind other */
+--contour-march:var(--dur-trace);/* @kind other */
+--contour-tick:20px;--contour-tick-w:3px;
+--contour-fill-scan:rgba(31,227,194,.06);--contour-fill-lock:rgba(31,227,194,.12);
+--contour-glow:drop-shadow(0 0 6px rgba(31,227,194,.55));/* @kind other */
+--contour-glow-review:drop-shadow(0 0 6px rgba(255,176,32,.5));/* @kind other */
+/* transparency checkerboard - 8px squares, the size every seller already recognises */
+--checker-size:16px;
+--checker-light:repeating-conic-gradient(var(--checker-b) 0% 25%,var(--checker-a) 0% 50%) 50%/var(--checker-size) var(--checker-size);/* @kind color */
+--checker-dark:repeating-conic-gradient(var(--checker-b-dark) 0% 25%,var(--checker-a-dark) 0% 50%) 50%/var(--checker-size) var(--checker-size)/* @kind color */
+}
+@keyframes pc-march{to{stroke-dashoffset:-42}}
+@keyframes pc-lock-pulse{0%{opacity:.35;transform:scale(1.015)}100%{opacity:0;transform:scale(1)}}
+@keyframes pc-sweep{0%{transform:translateY(-100%)}100%{transform:translateY(220%)}}
+@keyframes pc-trace-spin{to{transform:rotate(360deg)}}
+@keyframes pc-fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}

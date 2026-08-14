@@ -1,0 +1,75 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><title>ProductCam · Giao diện app</title>
+<link rel="stylesheet" href="_ds/productcam-design-system-8d7e1599-0b3a-4f3a-87c8-a208bd5b0896/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/productcam-design-system-8d7e1599-0b3a-4f3a-87c8-a208bd5b0896/styles.css">
+<script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="_ds/productcam-design-system-8d7e1599-0b3a-4f3a-87c8-a208bd5b0896/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;background:var(--bg-shell);color:var(--text-primary)}
+body{min-height:100vh;display:grid;place-items:center;padding:32px;box-sizing:border-box}
+a{color:var(--text-accent);text-decoration:none}a:hover{color:var(--mint-500)}
+#root{display:flex;gap:40px;align-items:flex-start}
+.rail{width:300px;display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.wm{font:var(--type-h1);letter-spacing:-.03em;margin:0}
+.sub{font:var(--type-caption);color:var(--text-secondary);text-wrap:pretty;margin:8px 0 0}
+.nav{display:flex;flex-direction:column;gap:4px}
+.nav button{display:flex;align-items:center;gap:12px;height:44px;padding:0 14px;border-radius:var(--r-sm);border:1px solid transparent;background:transparent;color:var(--text-secondary);font:var(--type-readout);letter-spacing:var(--tracking-readout);text-transform:uppercase;cursor:pointer;text-align:left;transition:var(--t-color)}
+.nav button:hover{background:var(--alpha-white-04);color:var(--text-primary)}
+.nav button[aria-current="true"]{background:var(--accent-quiet);color:var(--text-accent);border-color:var(--border-accent)}
+.nav .num{font:var(--type-readout-sm);color:var(--text-muted);width:16px}
+.note{font:var(--type-caption);color:var(--text-muted);line-height:1.55;border-top:1px solid var(--border-hairline);padding-top:16px;margin:0;text-wrap:pretty}
+.note b{color:var(--text-secondary);font-weight:var(--fw-semibold)}
+</style>
+</head><body><div id="root"></div>
+<script type="text/babel" src="pc-screens.jsx"></script>
+<script type="text/babel">
+const NS = window.ProductCamDesignSystem_8d7e15;
+const { BackgroundEditor, BatchSession, ExportSheet, PhoneFrame, PC_SHOTS } = NS;
+const SCREENS = [['camera','Camera'],['review','Kết quả'],['editor','Nền & bóng'],['batch','Phiên chụp'],['export','Xuất'],['history','Lịch sử'],['settings','Cài đặt']];
+const SHAPES = ['bottle','box','shoe','bag'];
+
+function App(){
+  const [screen,setScreen]=React.useState('camera');
+  const [mode,setMode]=React.useState('batch');
+  const [shots,setShots]=React.useState(PC_SHOTS.slice(0,4));
+  const [shape,setShape]=React.useState('bottle');
+  const [perf,setPerf]=React.useState('balanced');
+  const [exportOpen,setExportOpen]=React.useState(false);
+  const [exportCount,setExportCount]=React.useState(1);
+  const go=(s)=>{ if(s==='export'){ setExportCount(shots.length); setExportOpen(true); setScreen('batch'); } else { setExportOpen(false); setScreen(s); } };
+  const openExport=(n,from)=>{ setExportCount(n); setExportOpen(true); if(from) setScreen(from); };
+  const capture=()=>{
+    const next=SHAPES[(SHAPES.indexOf(shape)+1)%SHAPES.length];
+    setShots(p=>[...p,{id:Date.now(),status:'working',shape,progress:20}]);
+    if(mode==='batch'){ setShape(next); } else { setScreen('review'); }
+  };
+  const cur = exportOpen ? 'export' : screen;
+  return <>
+    <div className="rail">
+      <div>
+        <h1 className="wm">Product<span style={{color:'var(--mint-500)'}}>Cam</span></h1>
+        <p className="sub">Camera tách nền cho ảnh sản phẩm. Viền vật thể hiện ngay trên khung hình, trước khi bấm chụp. Toàn bộ xử lý trên máy, không cần mạng, không cần tài khoản.</p>
+      </div>
+      <div className="nav">
+        {SCREENS.map(([id,label],i)=>
+          <button key={id} aria-current={cur===id?'true':'false'} onClick={()=>go(id)}>
+            <span className="num">{String(i+1).padStart(2,'0')}</span>{label}
+          </button>)}
+      </div>
+      <p className="note"><b>Bấm nút chụp</b> để thêm ảnh vào phiên — ở chế độ Đơn, ảnh đi thẳng sang màn Kết quả. Chạm một ảnh trong Phiên chụp hoặc Lịch sử để mở thao tác riêng.<br/><br/>Ảnh camera và ảnh sản phẩm trong bản dựng này là placeholder.</p>
+    </div>
+    <PhoneFrame>
+      {screen==='camera'? <CameraScreen mode={mode} onMode={setMode} shots={shots} shape={shape} onCapture={capture} onOpenSession={()=>setScreen('batch')} onSettings={()=>setScreen('settings')}/> :null}
+      {screen==='review'? <ReviewScreen shape={shape} complex={shape==='shoe'} onRetake={()=>setScreen('camera')} onAccept={()=>setScreen('editor')}/> :null}
+      {screen==='editor'? <BackgroundEditor shape={shape} onBack={()=>setScreen('review')} onExport={()=>openExport(1)}/> :null}
+      {screen==='batch'? <BatchSession shots={shots.length>6?shots:PC_SHOTS} onBack={()=>setScreen('camera')} onMore={()=>setScreen('camera')} onExport={()=>openExport(shots.length>6?shots.length:PC_SHOTS.length)} onOpen={(s)=>{setShape(s.shape); setScreen(s.status==='done'?'editor':'review');}}/> :null}
+      {screen==='history'? <HistoryScreen onBack={()=>setScreen('camera')} onCamera={()=>setScreen('camera')} onEdit={(sh)=>{setShape(sh);setScreen('editor')}} onExport={()=>openExport(1)}/> :null}
+      {screen==='settings'? <SettingsScreen perf={perf} onPerf={setPerf} onBack={()=>setScreen('camera')}/> :null}
+      {exportOpen? <ExportSheet count={exportCount} onClose={()=>setExportOpen(false)} onDone={()=>{setExportOpen(false);setScreen('history')}}/> :null}
+    </PhoneFrame>
+  </>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

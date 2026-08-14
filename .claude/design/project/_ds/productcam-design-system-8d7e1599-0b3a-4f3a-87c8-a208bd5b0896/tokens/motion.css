@@ -1,0 +1,20 @@
+/* Motion is feedback, never decoration. Nothing animates longer than a shutter press
+   except the contour trace, which is a live status indicator. */
+:root{
+--dur-instant:90ms;/* @kind other */
+--dur-fast:140ms;/* @kind other */
+--dur-base:220ms;/* @kind other */
+--dur-slow:380ms;/* @kind other */
+--dur-trace:1100ms;/* @kind other */
+--dur-lock:180ms;/* @kind other */
+--dur-shutter:110ms;/* @kind other */
+--ease-snap:cubic-bezier(.2,.9,.2,1);/* @kind other */
+--ease-out:cubic-bezier(.16,1,.3,1);/* @kind other */
+--ease-in-out:cubic-bezier(.4,0,.2,1);/* @kind other */
+--ease-linear:linear;/* @kind other */
+--press-scale:.955;/* @kind other */
+--press-scale-shutter:.9;/* @kind other */
+--t-press:transform var(--dur-instant) var(--ease-snap);/* @kind other */
+--t-color:background-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out);/* @kind other */
+--t-sheet:transform var(--dur-base) var(--ease-out),opacity var(--dur-base) var(--ease-out)/* @kind other */
+}

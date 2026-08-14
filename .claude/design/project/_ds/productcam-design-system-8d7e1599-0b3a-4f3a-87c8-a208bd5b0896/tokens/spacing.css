@@ -1,0 +1,12 @@
+/* 4px base. Touch tokens are hard minimums, not suggestions - the shutter is pressed
+   hundreds of times per batch session, one-handed, without looking. */
+:root{
+--sp-1:2px;--sp-2:4px;--sp-3:6px;--sp-4:8px;--sp-5:12px;--sp-6:16px;--sp-7:20px;--sp-8:24px;--sp-9:32px;--sp-10:40px;--sp-11:48px;--sp-12:64px;
+--gutter:16px;--gutter-wide:20px;--sheet-pad:20px;
+--touch-min:44px;--touch-comfortable:56px;--touch-shutter:80px;--touch-shutter-hit:104px;
+--thumb-band:132px;/* bottom band reserved for one-handed primary actions */
+--safe-top:44px;--safe-bottom:34px;
+--bar-height:56px;--tabbar-height:64px;
+--grid-gap:6px;/* batch + history thumbnail grids sit tight: content is the interface */
+--stroke-hairline:1px;--stroke-medium:1.5px;--stroke-icon:1.75px
+}

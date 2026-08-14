@@ -1,0 +1,31 @@
+/* ProductCam palette - "instrument on ink".
+   Base ramps first, semantic aliases second. Flutter: ColorScheme.dark + custom extension. */
+:root{
+/* ink - cool navy-graphite shell (the viewfinder chrome) */
+--ink-950:#04090F;--ink-900:#08121C;--ink-850:#0C1826;--ink-800:#112232;--ink-700:#1A2F42;--ink-600:#274155;--ink-500:#3B5A70;--ink-400:#5C7C93;--ink-300:#8AA6B8;--ink-200:#B9CCD8;--ink-100:#DCE7ED;--ink-050:#F1F6F8;--white:#FFFFFF;
+/* mint - the signal colour: contour, focus, confirm, progress */
+--mint-050:#E4FFF9;--mint-200:#9DF7E5;--mint-400:#56F0D6;--mint-500:#1FE3C2;--mint-600:#10B79C;--mint-700:#0A8A76;--mint-900:#053F36;
+/* amber - "cần xem lại": complex edges, manual touch-up hints. Never red. */
+--amber-050:#FFF4DE;--amber-300:#FFD48A;--amber-500:#FFB020;--amber-700:#A86A00;--amber-900:#3D2700;
+/* coral - hard failure only (export/processing error) */
+--coral-050:#FFE9E9;--coral-500:#FF5A5F;--coral-700:#B3272C;
+/* checkerboard - transparency, industry standard values (Photoshop/Figma) */
+--checker-a:#FFFFFF;--checker-b:#D8DEE3;--checker-a-dark:#2A3A48;--checker-b-dark:#1E2C38;
+/* alpha utilities */
+--alpha-white-04:rgba(255,255,255,.04);--alpha-white-08:rgba(255,255,255,.08);--alpha-white-14:rgba(255,255,255,.14);--alpha-white-24:rgba(255,255,255,.24);--alpha-ink-40:rgba(4,9,15,.4);--alpha-ink-64:rgba(4,9,15,.64);--alpha-ink-88:rgba(4,9,15,.88)
+}
+:root{
+/* surfaces */
+--bg-shell:var(--ink-950);--bg-app:var(--ink-900);--bg-surface:var(--ink-850);--bg-surface-raised:var(--ink-800);--bg-sheet:var(--ink-850);--bg-input:var(--ink-800);--bg-track:var(--ink-700);--bg-scrim:var(--alpha-ink-64);--bg-glass:rgba(8,18,28,.62);
+/* light surfaces - used only on the export/handoff sheet and on print-ish specimens */
+--bg-light:var(--ink-050);--bg-light-surface:var(--white);
+/* text */
+--text-primary:var(--ink-050);--text-secondary:var(--ink-300);--text-muted:var(--ink-400);--text-inverse:var(--ink-900);--text-on-accent:var(--ink-950);--text-accent:var(--mint-400);--text-caution:var(--amber-300);--text-danger:var(--coral-500);
+/* accent / interactive */
+--accent:var(--mint-500);--accent-hover:var(--mint-400);--accent-press:var(--mint-600);--accent-quiet:rgba(31,227,194,.14);--accent-quiet-strong:rgba(31,227,194,.26);
+--caution:var(--amber-500);--caution-quiet:rgba(255,176,32,.16);--danger:var(--coral-500);--danger-quiet:rgba(255,90,95,.16);
+/* borders */
+--border-hairline:var(--alpha-white-08);--border-subtle:var(--alpha-white-14);--border-strong:var(--alpha-white-24);--border-accent:var(--mint-500);--border-focus:var(--mint-400);
+/* status (batch items, processing) */
+--status-queued:var(--ink-400);--status-working:var(--mint-400);--status-done:var(--mint-500);--status-review:var(--amber-500);--status-error:var(--coral-500)
+}

@@ -1,0 +1,15 @@
+/* Dark instrument UI: depth comes from rims and glow, not drop shadows.
+   Shadows exist only where a layer floats over live camera feed or over content. */
+:root{
+--rim:inset 0 0 0 1px var(--alpha-white-08);
+--rim-strong:inset 0 0 0 1px var(--alpha-white-14);
+--shadow-float:0 6px 20px rgba(2,8,14,.45);
+--shadow-sheet:0 -14px 44px rgba(2,8,14,.55);
+--shadow-thumb:0 2px 8px rgba(2,8,14,.4);
+--glow-accent:0 0 0 1px rgba(31,227,194,.55),0 0 22px rgba(31,227,194,.28);
+--glow-accent-soft:0 0 18px rgba(31,227,194,.22);
+--glow-caution:0 0 0 1px rgba(255,176,32,.5),0 0 18px rgba(255,176,32,.22);
+--scrim-top:linear-gradient(to bottom,rgba(4,9,15,.72),rgba(4,9,15,0));/* @kind color */
+--scrim-bottom:linear-gradient(to top,rgba(4,9,15,.86),rgba(4,9,15,0));/* @kind color */
+--blur-chrome:blur(18px) saturate(1.1)/* @kind other */
+}
