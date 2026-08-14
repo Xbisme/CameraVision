@@ -1,0 +1,119 @@
+{
+  "@@locale": "en",
+
+  "areaCameraCapture": "Camera",
+  "@areaCameraCapture": {
+    "description": "Name of the camera capture area — the launch screen"
+  },
+  "areaReview": "Result",
+  "@areaReview": {
+    "description": "Name of the area showing the cutout produced from a shot"
+  },
+  "areaBackgroundEditor": "Background & shadow",
+  "@areaBackgroundEditor": {
+    "description": "Name of the area for choosing a background and shadow"
+  },
+  "areaBatch": "Shooting session",
+  "@areaBatch": {
+    "description": "Name of the area listing shots taken in the current session"
+  },
+  "areaExport": "Export",
+  "@areaExport": {
+    "description": "Name of the area for saving and sharing results"
+  },
+  "areaHistory": "History",
+  "@areaHistory": {
+    "description": "Name of the area listing previously processed photos"
+  },
+  "areaSettings": "Settings",
+  "@areaSettings": {
+    "description": "Name of the settings area"
+  },
+
+  "failureModelLoadFailed": "The cutout engine could not start. Reinstalling the app usually fixes it.",
+  "@failureModelLoadFailed": {
+    "description": "Android: the bundled segmentation model failed to load"
+  },
+  "failureUnsupportedOsVersion": "This phone's system is older than the app needs. ProductCam requires iOS 17 or newer.",
+  "@failureUnsupportedOsVersion": {
+    "description": "iOS below 17.0 — subject lifting is unavailable"
+  },
+  "failureSegmenterNotInitialized": "The cutout engine is not ready yet. Try again in a moment.",
+  "@failureSegmenterNotInitialized": {
+    "description": "A segmentation call was made before initialization"
+  },
+  "failureSegmentationFailed": "No object was found in this photo. Try again with the product on a plainer background.",
+  "@failureSegmentationFailed": {
+    "description": "No subject could be separated — never phrased as the user's mistake"
+  },
+  "failureOutOfMemory": "This phone ran out of memory for a photo this large. Try again at a smaller size.",
+  "@failureOutOfMemory": {
+    "description": "Not enough memory to process at full resolution"
+  },
+  "failureImageLoadFailed": "This photo could not be opened. Take it again.",
+  "@failureImageLoadFailed": {
+    "description": "The input image is missing or unreadable"
+  },
+  "failurePermissionDenied": "ProductCam needs the camera for this.",
+  "@failurePermissionDenied": {
+    "description": "A permission was declined and can be asked for again"
+  },
+  "failurePermissionPermanentlyDenied": "Camera access is turned off for ProductCam.",
+  "@failurePermissionPermanentlyDenied": {
+    "description": "A permission was declined and the system will not ask again"
+  },
+  "failureStorageFull": "There is no space left on this phone. Free some space and try again.",
+  "@failureStorageFull": {
+    "description": "No room to write output"
+  },
+  "failureExportFailed": "The photo could not be saved. Try again.",
+  "@failureExportFailed": {
+    "description": "Writing or sharing the result failed"
+  },
+  "failureUnknown": "Something did not work. Try again.",
+  "@failureUnknown": {
+    "description": "Generic message for an unclassified failure. The underlying cause is logged, never shown."
+  },
+
+  "permissionCameraRationale": "ProductCam uses the camera to photograph your products and trace their outline on screen. Photos stay on this phone.",
+  "@permissionCameraRationale": {
+    "description": "Why the camera is needed — must match what the app actually does"
+  },
+  "permissionCameraDenied": "Without the camera you can still browse your saved photos, but you cannot take new ones.",
+  "@permissionCameraDenied": {
+    "description": "Shown after a camera permission is declined once"
+  },
+  "permissionCameraPermanentlyDenied": "Camera access is off. Turn it on in system settings to take photos.",
+  "@permissionCameraPermanentlyDenied": {
+    "description": "Shown when the system will no longer prompt"
+  },
+  "permissionCameraRestricted": "Camera access is blocked on this phone and cannot be changed here.",
+  "@permissionCameraRestricted": {
+    "description": "Blocked by device policy — no settings route is offered"
+  },
+  "permissionOpenSettingsAction": "Open settings",
+  "@permissionOpenSettingsAction": {
+    "description": "Action opening the system settings page for this app"
+  },
+  "permissionRetryAction": "Try again",
+  "@permissionRetryAction": {
+    "description": "Action asking for the permission again"
+  },
+  "cameraEnableAction": "Turn on camera",
+  "@cameraEnableAction": {
+    "description": "Action that triggers the just-in-time camera permission request"
+  },
+
+  "a11yBack": "Back",
+  "@a11yBack": {
+    "description": "Accessibility label for the back control"
+  },
+  "a11yDevNavigationIndex": "Developer navigation index",
+  "@a11yDevNavigationIndex": {
+    "description": "Accessibility label for the development-only navigation list"
+  },
+  "devNavigationIndexTitle": "All areas (development)",
+  "@devNavigationIndexTitle": {
+    "description": "Title of the development-only navigation index. Never present in production."
+  }
+}

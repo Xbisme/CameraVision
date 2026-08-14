@@ -5,6 +5,13 @@ SYNC IMPACT REPORT
 Version Change: (placeholder template) → 1.0.0 (initial ratification)
                 1.0.0 → 1.0.1 (chốt min iOS 17.0 + Chỉnh viền thuộc v1)
                 1.0.1 → 1.1.0 (ship EN + VI; `en` là mặc định và fallback)
+                1.1.0 → 1.1.1 (chốt tên app/bundle id + min Android API 24)
+
+v1.1.1 (2026-08-14): Chốt hai giá trị nền còn treo, cần cho Spec #001:
+**tên app = ProductCam**, bundle id `com.productcam.app.dev` (development) /
+`com.productcam.app` (production); **min Android API = 24**. PATCH — làm rõ
+follow-up TODO đã có, không đổi nguyên tắc nào. Xem
+`.claude/decisions/001-app-identity-and-min-sdk.md`.
 
 v1.1.0 (2026-08-14): Principle IX được mở rộng đáng kể. App ship **hai ngôn
 ngữ**: **`en` là ngôn ngữ mặc định + template locale + fallback**, `vi` là ngôn
@@ -57,9 +64,10 @@ Templates Requiring Updates:
 - .claude/screen-inventory.md ✅ (đã viết lại theo bundle design)
 
 Follow-up TODOs:
-- **Tên sản phẩm** vẫn là working name "ProductCam"; bundle id chưa chốt. Đề
-  xuất theo flavor: development `com.productcam.app.dev`, production
-  `com.productcam.app` — cần confirm trước Spec #001.
+- ~~Tên sản phẩm / bundle id~~ **ĐÃ CHỐT 2026-08-14 (v1.1.1)**: tên app
+  **ProductCam**; development `com.productcam.app.dev` (hiển thị
+  "ProductCam Dev") / production `com.productcam.app` (hiển thị "ProductCam").
+  Lưu ý: repo GitHub tên `CameraVision` — lệch tên là có chủ ý, không phải lỗi.
 - ~~Min iOS~~ **ĐÃ CHỐT 2026-08-14: iOS 17.0** (v1.0.1). Hạ xuống iOS 16 sau
   này là amendment MINOR kèm kế hoạch fallback, không phải thay đổi thường ngày.
 - **Model Android** chưa chốt (MODNet / ISNet / U2-Net). Màn Cài đặt trong
@@ -506,6 +514,12 @@ Project PHẢI có ĐÚNG HAI flavor: **`development`** và **`production`**. Kh
 - Giá trị theo flavor (app id, tên hiển thị, mức log, cờ bật màn benchmark) đọc
   từ tầng config theo flavor — CẤM hardcode trong widget và CẤM rải `#if`/
   `kDebugMode` trong code feature.
+- **Flavor ≠ build mode.** `kDebugMode` gắn với debug/release, không gắn với
+  flavor. Phải chạy được **release build của flavor `development`** để đo hiệu
+  năng thật (debug build của Flutter chậm hơn nhiều, đo bằng nó là vô nghĩa —
+  Principle V). Cờ bật công cụ đo do flavor quyết định, KHÔNG do build mode.
+- Bundle id đã chốt: `com.productcam.app.dev` / `com.productcam.app`. App id
+  khác nhau để cài song song hai bản trên cùng một máy thật.
 - `development` bật đo đạc/log hiệu năng; `production` tắt log chi tiết và
   không được kèm màn debug nào.
 - Thêm flavor thứ ba là amendment, không phải thay đổi thường ngày.
@@ -524,7 +538,9 @@ chỉ thêm bề mặt ký ứng dụng mà không thêm giá trị.
 - **Platform**: iOS (Vision `VNGenerateForegroundInstanceMaskRequest`) +
   Android (TFLite bundle sẵn) + tablet. **Min iOS: 17.0 (đã chốt)** — máy dưới
   17.0 nhận `UNSUPPORTED_OS_VERSION` và phải được chặn tính năng có giải thích
-  rõ, không crash; Android min API cần chốt cùng benchmark ở Spec #002.
+  rõ, không crash. **Min Android API: 24 (đã chốt)** — máy dưới 24 không cài
+  được; nếu benchmark ở Spec #002 cho thấy model chọn được cần API cao hơn thì
+  nâng minSdk là amendment MINOR kèm ước tính % thiết bị mất đi.
 - **Ranh giới native**: MethodChannel `com.productcam.app/segmentation` +
   EventChannel `com.productcam.app/segmentation_stream`
   (xem `.claude/platform-channel-contract.md`).
@@ -638,4 +654,4 @@ quyết định triển khai PHẢI tuân thủ.
   `.claude/project-context.md` + `.claude/sdd-roadmap.md`; ranh giới native:
   `.claude/platform-channel-contract.md`; giao diện: `.claude/design/`.
 
-**Version**: 1.1.0 | **Ratified**: 2026-08-14 | **Last Amended**: 2026-08-14
+**Version**: 1.1.1 | **Ratified**: 2026-08-14 | **Last Amended**: 2026-08-14

@@ -1,0 +1,12 @@
+// Development flavor.
+//
+// A distinct bundle identifier is what lets this build sit next to the
+// production one on the same device — the precondition for measuring
+// performance against a known-good reference build on real hardware.
+//
+// Mirrors AppConfig.development() in lib/core/config/app_config.dart and the
+// `development` product flavor in android/app/build.gradle.kts. Dart cannot set
+// the platform identity, so the three are changed together.
+
+PRODUCT_BUNDLE_IDENTIFIER = com.productcam.app.dev
+APP_DISPLAY_NAME = ProductCam Dev

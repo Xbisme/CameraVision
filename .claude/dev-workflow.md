@@ -51,6 +51,7 @@ Vì 1 contract (`platform-channel-contract.md`) phải khớp với **2 bộ cod
 - **Clean Architecture feature-first + BLoC, KHÔNG MVVM** — bloc đã giữ state của presentation, thêm ViewModel là trùng lặp.
 - **Không hardcode**: không màu/số đo/kiểu chữ ngoài `core/theme/tokens/`, không chuỗi hiển thị ngoài ARB, không magic value ngoài `core/config/`.
 - Tiếng Việt giao tiếp · Tiếng Anh code/comment/commit.
+- **Prompt cho speckit (`/speckit.specify`, `/speckit.plan`, …) viết bằng tiếng Anh** — tiếng Việt trong prompt dài dễ bị hiểu sai/rơi ý. Tài liệu trong `.claude/` vẫn giữ tiếng Việt; riêng copy hiển thị trong app theo Principle IX (`en` mặc định + `vi`).
 - **Hiệu năng là ưu tiên hàng đầu** (không phải bảo mật như 2 project trước — app này không có dữ liệu nhạy cảm/tài khoản):
   - Mọi thay đổi ở `previewFrame`/pipeline real-time phải đo lại thời gian xử lý trên ít nhất 1 thiết bị tầm thấp thật trước khi merge, không chỉ test trên máy dev/simulator mạnh.
   - Không bao giờ chạy segmentation trên UI thread.

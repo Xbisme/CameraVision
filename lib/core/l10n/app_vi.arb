@@ -1,0 +1,35 @@
+{
+  "@@locale": "vi",
+
+  "areaCameraCapture": "Máy ảnh",
+  "areaReview": "Kết quả",
+  "areaBackgroundEditor": "Nền & bóng",
+  "areaBatch": "Phiên chụp",
+  "areaExport": "Xuất",
+  "areaHistory": "Lịch sử",
+  "areaSettings": "Cài đặt",
+
+  "failureModelLoadFailed": "Không khởi động được bộ tách nền. Cài lại ứng dụng thường sẽ hết.",
+  "failureUnsupportedOsVersion": "Hệ điều hành của máy cũ hơn mức ứng dụng cần. ProductCam cần iOS 17 trở lên.",
+  "failureSegmenterNotInitialized": "Bộ tách nền chưa sẵn sàng. Thử lại sau giây lát.",
+  "failureSegmentationFailed": "Không tìm thấy vật thể trong ảnh này. Thử lại với sản phẩm đặt trên nền đơn giản hơn.",
+  "failureOutOfMemory": "Máy không đủ bộ nhớ cho ảnh lớn như vậy. Thử lại với kích thước nhỏ hơn.",
+  "failureImageLoadFailed": "Không mở được ảnh này. Chụp lại nhé.",
+  "failurePermissionDenied": "ProductCam cần máy ảnh để làm việc này.",
+  "failurePermissionPermanentlyDenied": "Quyền máy ảnh đang tắt cho ProductCam.",
+  "failureStorageFull": "Máy đã hết dung lượng. Giải phóng bớt rồi thử lại.",
+  "failureExportFailed": "Không lưu được ảnh. Thử lại nhé.",
+  "failureUnknown": "Có gì đó chưa chạy được. Thử lại nhé.",
+
+  "permissionCameraRationale": "ProductCam dùng máy ảnh để chụp sản phẩm và vẽ viền vật thể ngay trên màn hình. Ảnh nằm lại trên máy của bạn.",
+  "permissionCameraDenied": "Không có máy ảnh thì bạn vẫn xem được ảnh đã lưu, nhưng không chụp mới được.",
+  "permissionCameraPermanentlyDenied": "Quyền máy ảnh đang tắt. Bật trong cài đặt hệ thống để chụp ảnh.",
+  "permissionCameraRestricted": "Quyền máy ảnh bị chặn trên máy này và không đổi được từ đây.",
+  "permissionOpenSettingsAction": "Mở cài đặt",
+  "permissionRetryAction": "Thử lại",
+  "cameraEnableAction": "Bật máy ảnh",
+
+  "a11yBack": "Quay lại",
+  "a11yDevNavigationIndex": "Danh sách điều hướng cho lập trình viên",
+  "devNavigationIndexTitle": "Tất cả màn hình (bản development)"
+}

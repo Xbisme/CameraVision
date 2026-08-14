@@ -67,6 +67,7 @@ System & Theme  Engine — Android   Preview Engine
 - Review `screen-inventory.md` → `platform-channel-contract.md`. Checklist: xác nhận method channel names, xác nhận contour trả về dạng tỉ lệ 0.0-1.0 (không phải pixel), xác nhận error code catalog đủ cho mọi trường hợp lỗi native, xác nhận `initSegmenter` trả đủ `engine_label` + `model_size_bytes` cho màn Cài đặt, xác nhận danh sách "những gì KHÔNG đi qua channel" (v0.2.0).
 
 ### 001: Project Foundation
+- **Status**: 🟢 Implemented (2026-08-14) — chưa merge. 21/21 test pass, 6/6 cổng CI đã kiểm chứng đúng chiều. Còn nợ phần cần thiết bị thật: Xcode scheme, build APK, cài song song, đo cold-start.
 - **Branch**: `001-project-foundation`
 - **Depends on**: #000
 - **Scope**: Flutter skeleton theo clean architecture feature-first (`core/` + `features/<feature>/{domain,data,presentation}`); DI composition root; `Result<T>` + `AppFailure` phủ đủ error catalog; l10n ARB **`en` (mặc định + fallback) + `vi`** với `AppLocalizations`; flavor `development`/`production`; navigation (Camera là màn mặc định); xin quyền camera/thư viện ảnh (`permission_handler`); CI (`dart format`, `flutter analyze`, `flutter test`).
