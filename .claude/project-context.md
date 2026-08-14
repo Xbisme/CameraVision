@@ -2,7 +2,7 @@
 
 > Repo: `productcam` (Flutter — 1 repo duy nhất, KHÔNG có backend)
 >
-> Last updated: 2026-08-14 (Đã có bundle design + constitution v1.0.0 — chưa có spec nào triển khai)
+> Last updated: 2026-08-14 (Spec #001 đã merge vào `main` — PR #1, commit `f2c05ae`)
 
 ## Snapshot
 
@@ -20,9 +20,9 @@
 
 ## Current Focus
 
-- **Trạng thái**: **Spec #001 đã implement xong phần chạy được trên máy dev** (chưa merge). Constitution v1.1.1.
-- **Đã có sẵn**: `screen-inventory.md` (đã cập nhật theo design), `platform-channel-contract.md` v0.2.0 (draft), bundle design đầy đủ, `.specify/memory/constitution.md`, khung Flutter chạy được với 7 màn placeholder.
-- **Còn nợ ở #001 (cần máy/toolchain thật)**: Xcode scheme cho 2 flavor (phải làm trong Xcode); build thử APK release flavor development; kiểm cài song song 2 bản trên máy Android thật; đo cold-start. Máy dev hiện chưa cài Android SDK.
+- **Trạng thái**: **Spec #001 đã merge vào `main`** (PR #1, commit `f2c05ae`, 2026-08-14) — 60/63 task, 21/21 test pass. Constitution v1.1.1.
+- **Đã có sẵn**: `screen-inventory.md` (đã cập nhật theo design), `platform-channel-contract.md` v0.2.0 (draft), bundle design đầy đủ, `.specify/memory/constitution.md`, khung Flutter chạy được với 7 màn placeholder (33 file Dart trong `lib/`).
+- **Còn nợ ở #001 (3 task, cần thiết bị Android thật)**: T051 build APK release flavor `development`; T052 kiểm cài song song 2 bản trên máy Android thật; T060 đo cold-start. Máy dev hiện chưa cài Android SDK. Phần iOS của T051 đã kiểm chứng xong.
 - **Spec tiếp theo**: `001b-design-system-theme` — **phải merge trước mọi spec UI**. Và `#000` contract freeze phải xong trước `#002/#002b`.
 - **Thay đổi phạm vi do design (2026-08-14, đã chốt)**:
   - **"Chỉnh viền" thủ công vào v1** (trước xếp v2) → thêm Spec `004b-edge-refine`, xử lý phía Dart, không thêm method channel. → [`decisions/000-edge-refine-v1.md`](decisions/000-edge-refine-v1.md)

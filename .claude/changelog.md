@@ -3,7 +3,7 @@
 > Mỗi spec merge vào `main` thêm một entry. Format xem `dev-workflow.md`.
 > Giai đoạn trước Spec #001 ghi cả các thay đổi tài liệu nền vì chúng ràng buộc mọi spec sau.
 
-### 2026-08-14 — Spec #001 Project Foundation ✅ IMPLEMENTED
+### 2026-08-14 — Spec #001 Project Foundation ✅ MERGED (PR #1 → `f2c05ae`)
 
 - Khung Flutter chạy được: Clean Architecture feature-first cho 7 khu vực (`lib/core/` + `lib/features/<area>/{domain,data,presentation}`), BLoC/Cubit ở presentation, **không có ViewModel**.
 - `sealed AppFailure` (11 biến thể, phủ trọn Error Code Catalog của contract v0.2.0) + `sealed Result<T>` + mapping sang key l10n bằng `switch` vét cạn — thêm biến thể mà quên message thì **không compile được**.
@@ -13,7 +13,7 @@
 - Quyền just-in-time, 4 trạng thái (`granted`/`denied`/`permanentlyDenied`/`restricted`), đọc lại khi resume.
 - **21/21 test pass**; **6/6 cổng CI đã kiểm chứng fail đúng lúc bị vi phạm** — trong đó 2 cổng ban đầu **im lặng cho qua** và đã phải sửa: script chặn import chéo bị chính đường dẫn file làm nhiễu, và `flutter gen-l10n` bỏ qua tham số dòng lệnh khi có `l10n.yaml`.
 - Sai lệch so với plan: `intl` phải là **0.20.2** chứ không phải 0.20.3 — `flutter_localizations` trong SDK pin cứng; ràng buộc SDK thắng phiên bản mới nhất trên pub.
-- ⚠️ **Chưa xong, cần thiết bị/toolchain thật**: Xcode scheme + build configuration cho 2 flavor (phải làm trong Xcode); `flutter build apk --release --flavor development`; cài song song 2 bản trên máy Android thật; đo cold-start. Máy dev hiện **chưa cài Android SDK**.
+- ⚠️ **Còn nợ 3 task, cần thiết bị Android thật** (merge trước, trả nợ sau): T051 `flutter build apk --release --flavor development` + xác nhận `showsDeveloperSurfaces` vẫn true; T052 cài song song 2 bản trên máy Android thật; T060 đo cold-start kèm model máy + phiên bản OS. Máy dev hiện **chưa cài Android SDK**. Phía iOS của T051 đã kiểm chứng xong (release build của flavor `development` ra `com.productcam.app.dev`).
 
 ### 2026-08-14 — Design alignment + Constitution v1.1.0 ✅ LANDED
 
