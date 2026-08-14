@@ -1,0 +1,5 @@
+/* Reason shown when ProductCam asks for the camera, at the moment it is needed. */
+"NSCameraUsageDescription" = "ProductCam uses the camera to photograph your products and trace their outline on screen. Photos stay on this phone.";
+
+/* Reason shown when ProductCam saves an exported photo to the library. */
+"NSPhotoLibraryAddUsageDescription" = "ProductCam saves the photos you export to your library. Nothing is uploaded anywhere.";

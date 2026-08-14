@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# The Flutter version is pinned to exactly what the dev machine uses.
+# An action that silently tracks the latest stable would reintroduce the drift
+# this pin exists to prevent (research.md R1).
+env:
+  FLUTTER_VERSION: '3.44.4'
+
+jobs:
+  verify:
+    name: Format, analyze, guards, tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Confirm the pinned toolchain
+        run: flutter --version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localizations
+        run: flutter gen-l10n
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze
+
+      # Principles VII and IX — no hardcoded colours, styles or user-facing text.
+      - name: No hardcoded style or text
+        run: ./scripts/check_no_hardcode.sh
+
+      # Principle I / FR-003 — features must not import each other's internals.
+      - name: No cross-feature imports
+        run: ./scripts/check_no_cross_feature_imports.sh
+
+      # FR-014 — a key missing from any locale is a defect, not a fallback.
+      - name: No missing translations
+        run: ./scripts/check_l10n.sh
+
+      - name: Test
+        run: flutter test
+
+# Deliberately NOT built here: iOS and Android artifacts. Those need signing
+# setup and are not required by any acceptance criterion in spec 001. Real-device
+# builds stay manual, which the workflow in .claude/dev-workflow.md already
+# mandates for native-touching specs.

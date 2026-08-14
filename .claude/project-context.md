@@ -20,19 +20,20 @@
 
 ## Current Focus
 
-- **Trạng thái**: Repo mới khởi tạo, chưa merge spec nào. Constitution v1.0.0 đã ratify (2026-08-14).
-- **Đã có sẵn**: `screen-inventory.md` (đã cập nhật theo design), `platform-channel-contract.md` v0.2.0 (draft), bundle design đầy đủ, `.specify/memory/constitution.md`.
-- **Spec tiếp theo**: `001-project-foundation` (sau khi contract #000 freeze), rồi `001b-design-system-theme` — **phải merge trước mọi spec UI**.
+- **Trạng thái**: **Spec #001 đã implement xong phần chạy được trên máy dev** (chưa merge). Constitution v1.1.1.
+- **Đã có sẵn**: `screen-inventory.md` (đã cập nhật theo design), `platform-channel-contract.md` v0.2.0 (draft), bundle design đầy đủ, `.specify/memory/constitution.md`, khung Flutter chạy được với 7 màn placeholder.
+- **Còn nợ ở #001 (cần máy/toolchain thật)**: Xcode scheme cho 2 flavor (phải làm trong Xcode); build thử APK release flavor development; kiểm cài song song 2 bản trên máy Android thật; đo cold-start. Máy dev hiện chưa cài Android SDK.
+- **Spec tiếp theo**: `001b-design-system-theme` — **phải merge trước mọi spec UI**. Và `#000` contract freeze phải xong trước `#002/#002b`.
 - **Thay đổi phạm vi do design (2026-08-14, đã chốt)**:
   - **"Chỉnh viền" thủ công vào v1** (trước xếp v2) → thêm Spec `004b-edge-refine`, xử lý phía Dart, không thêm method channel. → [`decisions/000-edge-refine-v1.md`](decisions/000-edge-refine-v1.md)
   - **Min iOS 17.0** → [`decisions/000-min-ios-version.md`](decisions/000-min-ios-version.md)
+- **Nền tảng đã chốt (2026-08-14)**: tên app **ProductCam** · bundle id `com.productcam.app.dev` / `com.productcam.app` · **min Android API 24** · min iOS 17.0. Repo GitHub tên `CameraVision` — lệch tên là có chủ ý. → [`decisions/001-app-identity-and-min-sdk.md`](decisions/001-app-identity-and-min-sdk.md)
   - Định dạng xuất thêm **WEBP**; kích thước xuất chọn được **1000/1200/2048 px**.
   - Bảng nền cố định 7 lựa chọn; bóng đổ theo preset + slider.
   - Màn Cài đặt hiển thị thông tin mô hình → `initSegmenter` phải trả `engine_label` + `model_size_bytes` (contract v0.2.0).
 - **Chưa quyết định** (cần confirm trước khi implement):
   - **Model Android cụ thể** — MODNet vs ISNet vs U2-Net — cần benchmark thực tế trên vài thiết bị tầm trung/thấp, ảnh hưởng trực tiếp dung lượng app. (`MODNET · 12.4 MB` trong design chỉ là placeholder.)
   - Ngưỡng "máy tầm thấp" cụ thể (RAM/chip) để chốt frame-skip/downsample mặc định.
-  - **Tên/bundle id chính thức** — đề xuất `com.productcam.app.dev` / `com.productcam.app`.
   - **Font binary** Manrope + IBM Plex Mono (Vietnamese subset) — phải nhúng assets, không tải qua mạng.
 
 ## Repo Layout

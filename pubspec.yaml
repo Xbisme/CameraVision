@@ -1,0 +1,46 @@
+name: productcam
+description: "ProductCam — on-device background removal camera for product photos."
+publish_to: 'none'
+
+version: 0.1.0+1
+
+# Toolchain is pinned deliberately (spec 001, research.md R1).
+# The dev machine and CI must agree on this exact version.
+environment:
+  sdk: ^3.12.2
+  flutter: ">=3.44.4"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Presentation state (Principle II — BLoC, no MVVM)
+  flutter_bloc: 9.1.1
+  equatable: 2.1.0
+
+  # Composition root only (Principle I — never read outside it)
+  get_it: 9.2.1
+
+  # Declarative routing
+  go_router: 17.5.0
+
+  # Locale-aware formatting.
+  # 0.20.2, not the newer 0.20.3: flutter_localizations in the pinned SDK
+  # pins intl to exactly 0.20.2, and the SDK constraint wins.
+  intl: 0.20.2
+
+  # Just-in-time permissions (Principle VI)
+  permission_handler: 13.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 6.0.0
+  bloc_test: 10.0.0
+  mocktail: 1.0.5
+
+flutter:
+  uses-material-design: true
+  generate: true

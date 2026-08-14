@@ -1,0 +1,7 @@
+// Production flavor.
+//
+// Mirrors AppConfig.production() in lib/core/config/app_config.dart and the
+// `production` product flavor in android/app/build.gradle.kts.
+
+PRODUCT_BUNDLE_IDENTIFIER = com.productcam.app
+APP_DISPLAY_NAME = ProductCam

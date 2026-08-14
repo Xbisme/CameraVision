@@ -1,0 +1,11 @@
+arb-dir: lib/core/l10n
+template-arb-file: app_en.arb
+output-dir: lib/core/l10n/generated
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+nullable-getter: false
+
+# Must live here, not on the command line: when l10n.yaml exists, flutter
+# gen-l10n ignores CLI arguments entirely. scripts/check_l10n.sh reads this file
+# and fails the build if it is non-empty (FR-014).
+untranslated-messages-file: build/untranslated_messages.json

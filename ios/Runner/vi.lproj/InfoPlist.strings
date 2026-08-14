@@ -1,0 +1,5 @@
+/* Reason shown when ProductCam asks for the camera, at the moment it is needed. */
+"NSCameraUsageDescription" = "ProductCam dùng máy ảnh để chụp sản phẩm và vẽ viền vật thể ngay trên màn hình. Ảnh nằm lại trên máy của bạn.";
+
+/* Reason shown when ProductCam saves an exported photo to the library. */
+"NSPhotoLibraryAddUsageDescription" = "ProductCam lưu ảnh bạn xuất vào thư viện của máy. Không có gì được tải lên đâu cả.";

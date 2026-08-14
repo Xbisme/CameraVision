@@ -1,0 +1,7 @@
+// Debug build of the development flavor.
+//
+// Generated pairing: the Flutter base config supplies the toolchain settings,
+// the flavor config supplies identity. Keep both includes — dropping the first
+// breaks the Flutter build, dropping the second leaves the bundle id unset.
+#include "Debug.xcconfig"
+#include "Development.xcconfig"
