@@ -8,7 +8,8 @@
 
 Giao diện đã có sẵn trong [`design/`](design/) — **design là nguồn chân lý về UI**, không tự chế layout mới.
 
-1. Trước khi viết widget: đọc màn tương ứng trong `design/project/` (`ProductCam App.html`, `pc-screens.jsx`, `_ds/…/ui_kits/productcam-app/`) và `_ds/…/readme.md`.
+1. Trước khi viết widget: đọc màn tương ứng trong `design/project/` — `ProductCam App.html` và `pc-screens.jsx` — cùng `_ds/…/readme.md`.
+   ⚠️ `readme.md` có mục Index nhắc tới `components/`, `guidelines/`, `ui_kits/productcam-app/`. **Ba thư mục đó không tồn tại trên đĩa**; nguồn của chúng đã được compile vào `_ds_bundle.js`. Constitution Principle VIII cũng đang trỏ sai chỗ này — sửa nguyên tắc cần amendment, xem [`decisions/001b-design-system-deviations.md`](decisions/001b-design-system-deviations.md) §1.
 2. Prototype là HTML/CSS/JS — **tái hiện kết quả hình ảnh**, không bê cấu trúc DOM thành cây widget.
 3. Mọi giá trị style lấy từ `lib/core/theme/` (ThemeExtension), mọi chuỗi lấy từ ARB. Không có ngoại lệ "để tạm rồi sửa sau".
 4. Cần một màn/luồng chưa có trong design → **dừng, hỏi, cập nhật `screen-inventory.md` trước**, đừng tự vẽ.

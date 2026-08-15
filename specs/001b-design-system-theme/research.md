@@ -58,6 +58,8 @@ Both are Open Font License, so embedding and redistribution are permitted; the l
 
 **Latin-Extended is excluded deliberately.** The product ships `en` and `vi` only (Principle IX); Latin-Ext exists for European languages this app does not serve. Excluding it is a size decision, recorded here so nobody re-adds it by reflex.
 
+**The missing-glyph case is closed in two layers, not one.** T010 defines the fallback — anything outside the shipped set falls to the platform default rather than a tofu box. But a fallback is a floor, not a guarantee, so a charset golden renders the full Vietnamese diacritic set plus Latin and `₫` in both faces and freezes the result: a substituted or missing glyph differs visibly from the correct one, so the golden machinery already in place catches it with no extra tooling. The fallback covers what the product does not ship; the golden proves normal Vietnamese and English copy never needs it.
+
 **Alternatives considered**: Shipping all eight weights — rejected, two would be dead payload. Keeping the CDN `@import` — forbidden by Principle VI and by FR-012. Not subsetting — rejected; unsubset faces would blow the 1.5 MB budget on their own.
 
 ---

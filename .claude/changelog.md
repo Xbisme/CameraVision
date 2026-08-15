@@ -3,6 +3,18 @@
 > Mỗi spec merge vào `main` thêm một entry. Format xem `dev-workflow.md`.
 > Giai đoạn trước Spec #001 ghi cả các thay đổi tài liệu nền vì chúng ràng buộc mọi spec sau.
 
+### 2026-08-14 — Spec #001b Design System & Theme 🟡 IMPLEMENTED (chưa merge)
+
+- **Tầng token**: 196 custom property từ 9 file CSS của bundle → 7 file trong `lib/core/theme/tokens/`, phủ đủ, không sót cái nào. Test `token_catalogue_test.dart` đối chiếu theo **tên token CSS** nên xoá một token là không compile được, còn bỏ sót thì lệch số đếm.
+- **7 `ThemeExtension`** (`PcColors`/`PcTypography`/`PcSpacing`/`PcRadius`/`PcElevation`/`PcMotion`/`PcContour`) đăng ký trên **một** `ThemeData` tối, đọc qua `context.pcColors`. `lerp` viết thật cho từng field — `lerp` trả về `this` sẽ compile được và làm chết mọi theme transition mà không test đọc-giá-trị nào bắt được.
+- **Font tự host**: 6 file TTF (Manrope 400/500/600/700/800 + IBM Plex Mono 500), subset Latin + Vietnamese, **312 KB** — dư ngân sách 1.5 MB. `@import` từ CDN của bundle là dòng duy nhất trong design không thể tôn trọng (Principle VI). Đã kiểm cmap: cả 6 file phủ 90 codepoint dải `U+1EA0-1EF9` + `₫`, **kể cả face mono** — chỗ mà thiếu subset sẽ chỉ lộ ra khi badge `CẦN XEM LẠI` xuất hiện ở production.
+- **19 component dùng chung** + **26 icon** vendor từ tag git `lucide 0.474.0`, ghi lại stroke về **1.75** (Lucide ship 2). `PcIcon` nhận enum đóng nên glyph chưa vendor là lỗi biên dịch, không phải ô trắng lúc chạy.
+- **Cỡ chữ** tôn trọng tới **1.3×** rồi chặn (`MediaQuery.withClampedTextScaling`); **giảm chuyển động** dừng mọi loop và pulse, ba trạng thái contour vẫn phân biệt được bằng nét đứt.
+- **88/88 test không-golden pass**; **68 golden case** đã viết (12 contour × 4 nền tham chiếu, 55 component, 1 charset).
+- Cổng `check_no_hardcode.sh` siết từ `lib/core/theme/` xuống `lib/core/theme/tokens/` và thêm luật số đo. **Chạy thử phát hiện 2 bug trong chính cổng** — xem `decisions/001b-design-system-deviations.md` §10.
+- Test T067a phát hiện `ThumbBand` **tràn 24px trên máy 320dp**; đã sửa hai khe bên thành co giãn, giữ nguyên vùng chạm 104 của nút chụp.
+- ⚠️ **Còn nợ**: (1) **T011** — 9 giá trị blur mới là số *suy ra* từ σ của CSS, chưa hiệu chỉnh bằng mắt với bundle; (2) **baseline golden phải do CI Linux tạo lần đầu** (job `update-goldens`), trước đó test golden đỏ là đúng thiết kế; (3) đo dung lượng APK Android vẫn thiếu Android SDK; (4) Constitution VIII còn trỏ tới `ui_kits/` không tồn tại — **cần amendment trước Spec #004**.
+
 ### 2026-08-14 — Spec #001 Project Foundation ✅ MERGED (PR #1 → `f2c05ae`)
 
 - Khung Flutter chạy được: Clean Architecture feature-first cho 7 khu vực (`lib/core/` + `lib/features/<area>/{domain,data,presentation}`), BLoC/Cubit ở presentation, **không có ViewModel**.
