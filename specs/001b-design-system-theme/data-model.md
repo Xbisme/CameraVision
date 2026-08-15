@@ -109,7 +109,7 @@ Resolved by clarification (FR-022a) so Specs #004, #005 and #007 do not each gue
 
 A closed set, not an open door. `PcIcon` accepts a value from a single enumeration; an arbitrary asset path is not an accepted input, so an un-vendored glyph is a compile error rather than a blank square at runtime.
 
-Working vocabulary from the design bundle (~30): `camera`, `images`, `layers`, `image`, `zap`, `zapOff`, `refreshCw`, `rotateCcw`, `rotateCw`, `grid3x3`, `settings2`, `check`, `x`, `scissors`, `download`, `share2`, `clock`, `search`, `chevronLeft`, `moreHorizontal`, `loader`, `plus`, `undo2`, `signalHigh`, `wifi`, `batteryFull`.
+Working vocabulary from the design bundle — **26 glyphs**, the complete list: `camera`, `images`, `layers`, `image`, `zap`, `zapOff`, `refreshCw`, `rotateCcw`, `rotateCw`, `grid3x3`, `settings2`, `check`, `x`, `scissors`, `download`, `share2`, `clock`, `search`, `chevronLeft`, `moreHorizontal`, `loader`, `plus`, `undo2`, `signalHigh`, `wifi`, `batteryFull`.
 
 **Rules**
 - Monochrome, inheriting the surrounding colour. An icon is never coloured for decoration; colour follows state only.

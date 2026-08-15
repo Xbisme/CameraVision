@@ -26,14 +26,14 @@ Every package version below was read from pub.dev on 2026-08-14, as Principle XI
 
 **Alternatives considered**:
 - *An icon font* — smallest and dependency-free, rejected on stroke fidelity (Constitution VII names 1.75 explicitly).
-- *Hand-porting ~30 icons to `Path` code* — zero dependencies, rejected under Principle XIII: thirty transcriptions is real, error-prone work, and swapping the icon set later means doing all of it again.
+- *Hand-porting the 26 icons to `Path` code* — zero dependencies, rejected under Principle XIII: 26 transcriptions is real, error-prone work, and swapping the icon set later means doing all of it again.
 - *`vector_graphics` with precompiled `.vec` assets* — faster to parse and smaller, rejected for now because it adds a build step for a saving nobody has measured a need for. It remains the escape hatch if icon parsing ever shows up in a profile; `flutter_svg` already sits on top of `vector_graphics`, so the migration is local.
 
 ---
 
 ## R3 — Only the design's working vocabulary is vendored
 
-**Decision**: Bundle roughly thirty glyphs — the working vocabulary the design bundle names — and no more. Source is Lucide at the version the design pins (`0.474.0`), ISC-licensed, attribution recorded in the repo.
+**Decision**: Bundle exactly the **26** glyphs the design bundle's working vocabulary names, and no more. Source is Lucide at the version the design pins (`0.474.0`), ISC-licensed, attribution recorded in the repo.
 
 **Rationale**: FR-026a. The full Lucide set is over a thousand icons; shipping it would add weight for glyphs no screen will ever draw, in a project where app size is a named top-three risk. Adding a glyph later is dropping in one file.
 

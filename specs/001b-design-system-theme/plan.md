@@ -6,7 +6,7 @@
 
 ## Summary
 
-Move the ProductCam design system out of `.claude/design/` and into the app: **196 CSS custom properties across nine token files** become seven Dart token files, exposed through seven `ThemeExtension`s on one locked-dark `ThemeData`; six subset font binaries replace a CDN `@import`; roughly thirty vector icons land behind a single `PcIcon` entry point; and nineteen shared widgets are built so that Specs #004–#008 assemble screens instead of authoring styles.
+Move the ProductCam design system out of `.claude/design/` and into the app: **196 CSS custom properties across nine token files** become seven Dart token files, exposed through seven `ThemeExtension`s on one locked-dark `ThemeData`; six subset font binaries replace a CDN `@import`; 26 vector icons land behind a single `PcIcon` entry point; and nineteen shared widgets are built so that Specs #004–#008 assemble screens instead of authoring styles.
 
 The approach is deliberately mechanical where it can be and calibrated where it cannot. Most of the port is a literal transcription — a hex string becomes a `Color`, a `px` becomes a `double`, a `cubic-bezier` becomes a `Cubic`. Five constructs have no Flutter equivalent and need a documented substitution rather than a copy: the conic-gradient checkerboard, the `drop-shadow` glows, the `backdrop-filter` blur-plus-saturate, the composed `font:` shorthands, and the `transition` shorthands. One of those five — blur and shadow radii — cannot be transcribed numerically at all, because CSS and Flutter disagree on what a blur radius means; those values get calibrated against the bundle by eye and the calibrated numbers recorded next to the token.
 
@@ -32,7 +32,7 @@ No product capability ships. The seven placeholder areas from Spec #001 gain app
 
 **Constraints**: Fully offline — the CDN `@import` in `tokens/fonts.css` is the one thing in the design bundle that cannot be ported as written (Principle VI). No codegen and no `build_runner`. Locked to `ThemeMode.dark`; no light theme, no runtime switch. Text scaling honoured to 1.3× and capped there. Reduced motion stops every loop.
 
-**Scale/Scope**: 196 token definitions + 5 keyframes → 7 token files, 7 `ThemeExtension`s, 19 shared widgets, ~30 icons, 6 font binaries, and **67 golden cases** across the components' documented states. Zero user-visible product capability.
+**Scale/Scope**: 196 token definitions + 5 keyframes → 7 token files, 7 `ThemeExtension`s, 19 shared widgets, 26 icons, 6 font binaries, and **67 golden cases** across the components' documented states. Zero user-visible product capability.
 
 ## Constitution Check
 
@@ -52,9 +52,9 @@ Constitution v1.1.1. Each principle is a gate; a plan that cannot pass one must 
 | VIII | Design fidelity | **PASS** | Every value traces to a named token in the bundle; [contracts/token-catalogue.md](./contracts/token-catalogue.md) is the line-by-line audit that makes "no silent drops" checkable rather than asserted. Where the bundle's own index points at folders that do not exist on disk, the plan points at what does. |
 | IX | No hardcoded display strings | **PASS** | Components receive display text as parameters (FR-021) and never read the ARB, so this spec adds no keys and cannot leak a literal. Screens that supply the text are later specs. |
 | X | No hardcoded config or magic values | **PASS** | Sizes, durations and stroke widths are tokens, not magic numbers at call sites. The 1.3× text cap and the icon inventory are named constants in the theme layer. |
-| XI | Touch, contrast, state not by colour alone | **PASS** | This is the principle Spec #001 deferred, and it is settled here: 44/56/80-in-104 enforced per component and asserted in tests; contour states separated by dash pattern so they survive greyscale (SC-003); reduced motion honoured with state meaning preserved (FR-027a); text scaling capped rather than ignored (FR-015a). Semantics labels are supplied by callers, matching FR-021. |
+| XI | Touch, contrast, state not by colour alone | **PASS** | This is the principle Spec #001 deferred, and it is settled here: 44/56/80-in-104 enforced per component and asserted in tests; contour states separated by dash pattern so they survive greyscale (SC-003); reduced motion honoured with state meaning preserved (FR-027a); text scaling capped rather than ignored (FR-015a). Semantics labels are supplied by callers, matching FR-021 — and `semanticsLabel` is a **required** parameter on all three controls that render no visible text (`PcIconButton`, `ShutterButton`, `PcSlider`), so an unnamed control cannot be constructed at all. |
 | XII | Testing discipline | **PASS** | Golden tests for every component state — the specific obligation this principle names for the design system. Plus a token-catalogue audit test, `copyWith`/`lerp` tests per extension, and touch-size assertions. Deterministic: no network, no camera, no wall-clock. |
-| XIII | Simplicity & YAGNI | **PASS** | One new dependency, chosen over hand-porting thirty icon paths. No codegen, no theme-generation tooling, no component playground app. Components carry no content that belongs to Specs #005/#006 (FR-022). |
+| XIII | Simplicity & YAGNI | **PASS** | One new dependency, chosen over hand-porting 26 icon paths. No codegen, no theme-generation tooling, no component playground app. Components carry no content that belongs to Specs #005/#006 (FR-022). |
 | XIV | Dependency hygiene | **PASS** | `flutter_svg 2.3.0` verified on pub.dev on 2026-08-14: exists under that exact name, published by `flutter.dev`, Flutter Favorite, supports both target platforms, no runtime network access. Version pinned, lockfile committed. `golden_toolkit` was checked and rejected because pub.dev marks it discontinued. |
 | XV | Exactly two flavors | **PASS (N/A)** | Flavor configuration is untouched. The theme is identical in both, which is correct — a development build that looks different from production would defeat the on-device visual checks. |
 
@@ -116,7 +116,7 @@ lib/app/app.dart                   # ThemeData.dark() → buildPcTheme(); text-s
 
 assets/
 ├── fonts/                         # 6 subset TTF binaries (Latin + Vietnamese)
-└── icons/                         # ~30 SVG glyphs, the design's working vocabulary only
+└── icons/                         # 26 SVG glyphs, the design's working vocabulary only
 
 test/
 ├── flutter_test_config.dart       # loads the real fonts so goldens show real type

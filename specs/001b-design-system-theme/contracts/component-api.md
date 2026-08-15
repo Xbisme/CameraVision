@@ -11,7 +11,7 @@ The public surface of the nineteen shared widgets in `lib/core/widgets/`. This i
 3. **No content of its own** (FR-022). A component renders what it is handed. The seven background swatches belong to Spec #005, the batch queue to Spec #006.
 4. **Touch minimums are hard** (FR-023): 44 minimum, 56 comfortable, 80 shutter inside a 104 hit target. A test asserts the rendered hit area, not the painted size.
 5. **State is never carried by colour alone** (Principle XI). Every state pairs its colour with a shape, dash pattern, or glyph.
-6. **Icon-only controls require a `semanticsLabel`.** It is a required parameter, not an optional one — an unlabelled icon button must not be constructible.
+6. **Any control without visible text requires a `semanticsLabel`.** It is a required parameter, not an optional one — such a control must not be constructible without a name. That covers `PcIconButton`, `ShutterButton` and `PcSlider`. Controls that already carry a visible label (`PcButton`, `PcChip`, `ModeToggle`) take theirs from that text.
 7. **Motion honours reduced motion** (FR-027a) and duration/curve come from `PcMotion`.
 
 ---
@@ -50,7 +50,8 @@ The single icon entry point (FR-025). Stroke fixed at `--stroke-icon` 1.75, roun
 Goldens: one sheet showing the full vocabulary at all four sizes = 1.
 
 ### `PcSlider`
-Inputs: `value` · `min` · `max` · `onChanged` · optional `label` · optional `readout` (mono, shown while dragging).
+Inputs: `value` · `min` · `max` · `onChanged` · **required** `semanticsLabel` · optional `label` · optional `readout` (mono, shown while dragging).
+The visible `label` stays optional because the design uses unlabelled sliders inside sheets, which is exactly why the accessible name cannot also be optional.
 Track `--bg-track`, active fill mint, thumb hit area ≥ 44 even though the painted thumb is smaller.
 Goldens: idle · dragging = 2.
 
@@ -67,7 +68,8 @@ Reduced motion → march and pulse stop, dash patterns stay (FR-027a).
 Goldens: 3 states × 4 reference backgrounds = 12, plus 3 greyscale stills for SC-003.
 
 ### `ShutterButton` ★
-Inputs: `onPressed` · `mode` (`single`/`batch`) · `contourLocked` · optional `shotCount` (batch only).
+Inputs: `onPressed` · `mode` (`single`/`batch`) · `contourLocked` · **required** `semanticsLabel` · optional `shotCount` (batch only).
+It renders a bare disc with no text, so it is an icon-only control in every sense that matters — Principle XI requires a label and forbids constructing one without it. This is the most-pressed control in the product; a screen reader must not meet it as an unnamed button.
 80px visible disc inside a 104px hit target, nothing tappable within 12px. Press scale `.90`. The ring **is a status light**: white while scanning, mint plus glow the instant the contour locks — confirmation happens under the user's thumb. Batch mode shows a mono shot count.
 Goldens: single unlocked · single locked · batch with count · pressed = 4.
 
