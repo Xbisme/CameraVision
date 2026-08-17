@@ -74,7 +74,7 @@ System & Theme  Engine — Android   Preview Engine
 - **Constitution gate**: Principle I, III, IX, X, XV.
 
 ### 001b: Design System & Theme
-- **Status**: 🟡 Implemented (2026-08-14) — chưa merge. 196 token, 7 ThemeExtension, 19 component, 26 icon, 6 font (312 KB). 88/88 test không-golden pass; 68 golden chờ CI Linux tạo baseline. Còn nợ: hiệu chỉnh blur bằng mắt (T011), baseline golden, dung lượng APK Android.
+- **Status**: 🟡 Implemented (2026-08-14) — chưa merge. **75/77 task**. 196 token, 7 ThemeExtension, 19 component, 26 icon, 6 font. 109/109 test không-golden pass; 68 golden chờ CI Linux tạo baseline. Dung lượng iOS +500 KB (ngân sách 1,5 MB). Còn nợ 2 việc ngoài máy dev: chạy job `update-goldens`, và đi quickstart trên máy thật. Dung lượng Android chưa đo được — thiếu Android SDK.
 - **Branch**: `001b-design-system-theme`
 - **Depends on**: 001 (chạy song song được với 002/002b/003)
 - **Scope**: Port token từ `.claude/design/project/_ds/.../tokens/*.css` sang `lib/core/theme/tokens/` (colors, typography, spacing, radius, elevation, motion, contour); phơi qua `ThemeExtension` (`PcColors`, `PcSpacing`, `PcRadius`, `PcTypography`, `PcElevation`, `PcMotion`, `PcContour`); nhúng font Manrope + IBM Plex Mono (Vietnamese subset) vào `assets/fonts/` — **không tải qua mạng**; dựng component dùng chung trong `core/widgets/` ánh xạ 1:1 với bundle design (`PcButton`, `PcIconButton`, `PcChip`, `PcBadge`, `PcSheet`, `PcIcon`, `PcSlider`, `PcToast`, `EdgeNotice`, `Readout`, `ShutterButton`, `ModeToggle`, `ContourOverlay`, `CheckerSurface`, `BackgroundSwatchPicker`, `BatchThumb`, `ProgressTrace`, `ScreenHeader`, `ThumbBand`); golden test cho từng component.

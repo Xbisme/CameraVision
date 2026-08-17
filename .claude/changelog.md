@@ -13,7 +13,12 @@
 - **88/88 test không-golden pass**; **68 golden case** đã viết (12 contour × 4 nền tham chiếu, 55 component, 1 charset).
 - Cổng `check_no_hardcode.sh` siết từ `lib/core/theme/` xuống `lib/core/theme/tokens/` và thêm luật số đo. **Chạy thử phát hiện 2 bug trong chính cổng** — xem `decisions/001b-design-system-deviations.md` §10.
 - Test T067a phát hiện `ThumbBand` **tràn 24px trên máy 320dp**; đã sửa hai khe bên thành co giãn, giữ nguyên vùng chạm 104 của nút chụp.
-- ⚠️ **Còn nợ**: (1) **T011** — 9 giá trị blur mới là số *suy ra* từ σ của CSS, chưa hiệu chỉnh bằng mắt với bundle; (2) **baseline golden phải do CI Linux tạo lần đầu** (job `update-goldens`), trước đó test golden đỏ là đúng thiết kế; (3) đo dung lượng APK Android vẫn thiếu Android SDK; (4) Constitution VIII còn trỏ tới `ui_kits/` không tồn tại — **cần amendment trước Spec #004**.
+- **Dung lượng iOS đo bằng build release thật**, so với baseline `main` dựng trong worktree riêng: **15.784 KB → 16.284 KB, delta 500 KB (0,49 MB)** — ngân sách SC-008 là 1,5 MB.
+- **Quy đổi blur đã chốt bằng chứng cứ, không phải phỏng đoán**: `Shadow.convertRadiusToSigma(r) = r × 0.57735 + 0.5` đọc thẳng từ `sky_engine/lib/ui/painting.dart:8731`, `BoxShadow.toPaint()` dùng đúng `blurSigma` đó. 5 giá trị suy ra trúng σ mục tiêu trong sai số < 0,003, khoá bằng `blur_conversion_test.dart`.
+- **Ba luật thiết kế từng chỉ duyệt bằng mắt nay có cổng tự động** (`design_laws_test.dart`): FR-009 duyệt render tree đếm giá trị nền mỗi màn (≤2), FR-010 đếm nút primary mỗi màn (≤1), FR-027 quét source cấm bounce/spring/elastic/parallax. Cộng kiểm SC-011: pubspec không có `camera`/`gal`/`share_plus`/storage, `lib/` không chạm `CameraController`/`HttpClient`/`File(`.
+- **Tách trạng thái contour khi bỏ màu, đo được**: scanning↔locked 7,31% pixel khác, scanning↔review 4,35%, locked↔review 8,96% — Principle XI không còn dựa vào lời hứa.
+- **109/109 test không-golden pass.**
+- ⚠️ **Còn nợ 2 việc, đều ở ngoài máy dev**: (1) chạy job `update-goldens` trên CI Linux để tạo 68 baseline lần đầu — trước đó test golden đỏ là đúng thiết kế; (2) đi hết quickstart trên máy thật. Ngoài ra dung lượng **Android** vẫn chưa đo được (`flutter doctor` báo không có Android SDK ở `ANDROID_HOME`), và Constitution VIII còn trỏ tới `ui_kits/` không tồn tại — **cần amendment trước Spec #004**.
 
 ### 2026-08-14 — Spec #001 Project Foundation ✅ MERGED (PR #1 → `f2c05ae`)
 
