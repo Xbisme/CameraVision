@@ -4,6 +4,17 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Golden baselines are regenerated here and nowhere else. The dev machine is
+  # macOS, CI is Linux, and text rasterization differs enough between them that
+  # one set of bytes cannot satisfy both — so CI is the single rendering target
+  # (spec 001b research R6). Running --update-goldens locally would write
+  # macOS-rendered bytes into a Linux-authoritative baseline set.
+  workflow_dispatch:
+    inputs:
+      update_goldens:
+        description: 'Regenerate golden baselines and commit them'
+        type: boolean
+        default: false
 
 # The Flutter version is pinned to exactly what the dev machine uses.
 # An action that silently tracks the latest stable would reintroduce the drift
@@ -51,8 +62,47 @@ jobs:
       - name: No missing translations
         run: ./scripts/check_l10n.sh
 
+      # Runs everything, goldens included. This job is the golden authority.
       - name: Test
         run: flutter test
+
+  update-goldens:
+    name: Regenerate golden baselines
+    if: github.event_name == 'workflow_dispatch' && inputs.update_goldens
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: subosito/flutter-action@v2.23.0
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localizations
+        run: flutter gen-l10n
+
+      - name: Regenerate goldens
+        run: flutter test --update-goldens --tags golden
+
+      - name: Commit refreshed baselines
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          if git diff --quiet -- test/; then
+            echo "No golden changes — nothing to commit."
+            exit 0
+          fi
+          git add test/
+          git commit -m 'chore: regenerate golden baselines on the CI renderer'
+          git push
 
 # Deliberately NOT built here: iOS and Android artifacts. Those need signing
 # setup and are not required by any acceptance criterion in spec 001. Real-device

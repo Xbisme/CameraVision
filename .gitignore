@@ -18,8 +18,14 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# VS Code
-.vscode/
+# VS Code — cá nhân hoá thì bỏ qua, riêng launch.json thì không.
+# Cấu hình chạy mang theo hai flavor và cấu hình release-của-flavor-development
+# mà Constitution XV bắt buộc phải chạy được. Để nó ngoài repo nghĩa là mỗi
+# người tự gõ tay `--flavor` và sớm muộn sẽ có người đo hiệu năng bằng debug
+# build. Dùng `.vscode/*` + negation vì git không đi vào thư mục đã bị loại trừ,
+# nên `!.vscode/launch.json` một mình sẽ không có tác dụng.
+.vscode/*
+!.vscode/launch.json
 
 # Flutter/Dart/Pub
 **/doc/api/

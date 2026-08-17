@@ -34,6 +34,11 @@ dependencies:
   # Just-in-time permissions (Principle VI)
   permission_handler: 13.0.1
 
+  # Vector icons (spec 001b, research.md R2).
+  # Chosen over an icon font so the design's 1.75 stroke is reproduced exactly
+  # rather than baked in at whatever weight the font was generated with.
+  flutter_svg: 2.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,3 +49,40 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  # `assets/fonts/` is deliberately NOT declared here. Font binaries reach the
+  # bundle through the `fonts:` section below; declaring the directory as an
+  # asset as well would ship every .ttf twice, and app size is a named top-three
+  # risk on this project. Licence texts live in assets/licenses/ for that reason.
+  assets:
+    - assets/icons/
+    - assets/licenses/
+
+  # Six weights, not eight: an audit of the ten composed type roles found every
+  # Manrope weight referenced but only one of the three IBM Plex Mono weights
+  # (spec 001b, research R4). Mono 400 and 600 would be dead payload in every
+  # install.
+  #
+  # Static TTF, not variable and not WOFF2. Flutter cannot load WOFF2 at all,
+  # and variable-axis weight resolution would put unexplained churn into the
+  # golden baselines this spec relies on (research R5).
+  #
+  # Each file is subset to Latin + Vietnamese. Latin-Extended is excluded
+  # deliberately — it serves European languages this product does not ship.
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-400.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-500.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-600.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-700.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-800.ttf
+          weight: 800
+    - family: IBMPlexMono
+      fonts:
+        - asset: assets/fonts/IBMPlexMono-500.ttf
+          weight: 500

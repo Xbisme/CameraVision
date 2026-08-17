@@ -23,7 +23,8 @@
 - **Trạng thái**: **Spec #001 đã merge vào `main`** (PR #1, commit `f2c05ae`, 2026-08-14) — 60/63 task, 21/21 test pass. Constitution v1.1.1.
 - **Đã có sẵn**: `screen-inventory.md` (đã cập nhật theo design), `platform-channel-contract.md` v0.2.0 (draft), bundle design đầy đủ, `.specify/memory/constitution.md`, khung Flutter chạy được với 7 màn placeholder (33 file Dart trong `lib/`).
 - **Còn nợ ở #001 (3 task, cần thiết bị Android thật)**: T051 build APK release flavor `development`; T052 kiểm cài song song 2 bản trên máy Android thật; T060 đo cold-start. Máy dev hiện chưa cài Android SDK. Phần iOS của T051 đã kiểm chứng xong.
-- **Spec tiếp theo**: `001b-design-system-theme` — **phải merge trước mọi spec UI**. Và `#000` contract freeze phải xong trước `#002/#002b`.
+- **Spec đang làm**: `001b-design-system-theme` — đã implement, **chưa merge**. Phải merge trước mọi spec UI. `#000` contract freeze vẫn phải xong trước `#002/#002b`.
+- **Chặn Spec #004**: Constitution Principle VIII đang trỏ implementer tới `_ds/…/ui_kits/productcam-app/`, thư mục **không tồn tại trên đĩa**. Cần amendment — xem [`decisions/001b-design-system-deviations.md`](decisions/001b-design-system-deviations.md).
 - **Thay đổi phạm vi do design (2026-08-14, đã chốt)**:
   - **"Chỉnh viền" thủ công vào v1** (trước xếp v2) → thêm Spec `004b-edge-refine`, xử lý phía Dart, không thêm method channel. → [`decisions/000-edge-refine-v1.md`](decisions/000-edge-refine-v1.md)
   - **Min iOS 17.0** → [`decisions/000-min-ios-version.md`](decisions/000-min-ios-version.md)

@@ -3,6 +3,23 @@
 > Mỗi spec merge vào `main` thêm một entry. Format xem `dev-workflow.md`.
 > Giai đoạn trước Spec #001 ghi cả các thay đổi tài liệu nền vì chúng ràng buộc mọi spec sau.
 
+### 2026-08-14 — Spec #001b Design System & Theme 🟡 IMPLEMENTED (chưa merge)
+
+- **Tầng token**: 196 custom property từ 9 file CSS của bundle → 7 file trong `lib/core/theme/tokens/`, phủ đủ, không sót cái nào. Test `token_catalogue_test.dart` đối chiếu theo **tên token CSS** nên xoá một token là không compile được, còn bỏ sót thì lệch số đếm.
+- **7 `ThemeExtension`** (`PcColors`/`PcTypography`/`PcSpacing`/`PcRadius`/`PcElevation`/`PcMotion`/`PcContour`) đăng ký trên **một** `ThemeData` tối, đọc qua `context.pcColors`. `lerp` viết thật cho từng field — `lerp` trả về `this` sẽ compile được và làm chết mọi theme transition mà không test đọc-giá-trị nào bắt được.
+- **Font tự host**: 6 file TTF (Manrope 400/500/600/700/800 + IBM Plex Mono 500), subset Latin + Vietnamese, **312 KB** — dư ngân sách 1.5 MB. `@import` từ CDN của bundle là dòng duy nhất trong design không thể tôn trọng (Principle VI). Đã kiểm cmap: cả 6 file phủ 90 codepoint dải `U+1EA0-1EF9` + `₫`, **kể cả face mono** — chỗ mà thiếu subset sẽ chỉ lộ ra khi badge `CẦN XEM LẠI` xuất hiện ở production.
+- **19 component dùng chung** + **26 icon** vendor từ tag git `lucide 0.474.0`, ghi lại stroke về **1.75** (Lucide ship 2). `PcIcon` nhận enum đóng nên glyph chưa vendor là lỗi biên dịch, không phải ô trắng lúc chạy.
+- **Cỡ chữ** tôn trọng tới **1.3×** rồi chặn (`MediaQuery.withClampedTextScaling`); **giảm chuyển động** dừng mọi loop và pulse, ba trạng thái contour vẫn phân biệt được bằng nét đứt.
+- **88/88 test không-golden pass**; **68 golden case** đã viết (12 contour × 4 nền tham chiếu, 55 component, 1 charset).
+- Cổng `check_no_hardcode.sh` siết từ `lib/core/theme/` xuống `lib/core/theme/tokens/` và thêm luật số đo. **Chạy thử phát hiện 2 bug trong chính cổng** — xem `decisions/001b-design-system-deviations.md` §10.
+- Test T067a phát hiện `ThumbBand` **tràn 24px trên máy 320dp**; đã sửa hai khe bên thành co giãn, giữ nguyên vùng chạm 104 của nút chụp.
+- **Dung lượng iOS đo bằng build release thật**, so với baseline `main` dựng trong worktree riêng: **15.784 KB → 16.284 KB, delta 500 KB (0,49 MB)** — ngân sách SC-008 là 1,5 MB.
+- **Quy đổi blur đã chốt bằng chứng cứ, không phải phỏng đoán**: `Shadow.convertRadiusToSigma(r) = r × 0.57735 + 0.5` đọc thẳng từ `sky_engine/lib/ui/painting.dart:8731`, `BoxShadow.toPaint()` dùng đúng `blurSigma` đó. 5 giá trị suy ra trúng σ mục tiêu trong sai số < 0,003, khoá bằng `blur_conversion_test.dart`.
+- **Ba luật thiết kế từng chỉ duyệt bằng mắt nay có cổng tự động** (`design_laws_test.dart`): FR-009 duyệt render tree đếm giá trị nền mỗi màn (≤2), FR-010 đếm nút primary mỗi màn (≤1), FR-027 quét source cấm bounce/spring/elastic/parallax. Cộng kiểm SC-011: pubspec không có `camera`/`gal`/`share_plus`/storage, `lib/` không chạm `CameraController`/`HttpClient`/`File(`.
+- **Tách trạng thái contour khi bỏ màu, đo được**: scanning↔locked 7,31% pixel khác, scanning↔review 4,35%, locked↔review 8,96% — Principle XI không còn dựa vào lời hứa.
+- **109/109 test không-golden pass.**
+- ⚠️ **Còn nợ 2 việc, đều ở ngoài máy dev**: (1) chạy job `update-goldens` trên CI Linux để tạo 68 baseline lần đầu — trước đó test golden đỏ là đúng thiết kế; (2) đi hết quickstart trên máy thật. Ngoài ra dung lượng **Android** vẫn chưa đo được (`flutter doctor` báo không có Android SDK ở `ANDROID_HOME`), và Constitution VIII còn trỏ tới `ui_kits/` không tồn tại — **cần amendment trước Spec #004**.
+
 ### 2026-08-14 — Spec #001 Project Foundation ✅ MERGED (PR #1 → `f2c05ae`)
 
 - Khung Flutter chạy được: Clean Architecture feature-first cho 7 khu vực (`lib/core/` + `lib/features/<area>/{domain,data,presentation}`), BLoC/Cubit ở presentation, **không có ViewModel**.

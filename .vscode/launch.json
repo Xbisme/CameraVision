@@ -1,0 +1,87 @@
+{
+  // ProductCam — cấu hình chạy cho VS Code / Cursor.
+  //
+  // Hai flavor, ba build mode. Điểm quan trọng nhất ở đây là Constitution XV:
+  // **flavor ≠ build mode**. Bản `development` phải chạy được ở chế độ release
+  // để đo hiệu năng thật — debug build của Flutter chậm hơn nhiều lần, đo bằng
+  // nó là vô nghĩa (Principle V). Vì vậy có hẳn một cấu hình riêng cho việc đó
+  // thay vì bắt người ta gõ tay mỗi lần.
+  //
+  // `toolArgs` là tham số truyền cho `flutter run`; `args` là tham số truyền
+  // cho app. `--flavor` thuộc về `flutter run` nên nằm ở `toolArgs`.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Dùng hằng ngày.
+      "name": "Dev · debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "toolArgs": ["--flavor", "development"],
+      "flutterMode": "debug"
+    },
+    {
+      // Đo hiệu năng có kèm công cụ quan sát. Từ Spec #003 trở đi đây là chế độ
+      // dùng để lấy số `previewFrame` p50/p95 trên máy thật.
+      "name": "Dev · profile (đo hiệu năng)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "toolArgs": ["--flavor", "development"],
+      "flutterMode": "profile"
+    },
+    {
+      // Constitution XV yêu cầu cấu hình này tồn tại và chạy được: release
+      // build của flavor development. Cờ bật công cụ đo do FLAVOR quyết định,
+      // không do `kDebugMode` — nên bản này vẫn hiện developer surfaces trong
+      // khi tốc độ là tốc độ thật.
+      "name": "Dev · release (flavor ≠ build mode)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_development.dart",
+      "toolArgs": ["--flavor", "development"],
+      "flutterMode": "release"
+    },
+    {
+      "name": "Prod · debug",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "toolArgs": ["--flavor", "production"],
+      "flutterMode": "debug"
+    },
+    {
+      // Bản gần với thứ người dùng thật sự cài. Không có màn debug, không có
+      // navigation index — `lib/dev/` không được tham chiếu ở đây.
+      "name": "Prod · release",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_production.dart",
+      "toolArgs": ["--flavor", "production"],
+      "flutterMode": "release"
+    },
+    {
+      // Bộ test chạy hằng ngày trên máy dev: BỎ QUA golden.
+      //
+      // Baseline golden lấy Linux CI làm chuẩn (spec 001b, research R6). Máy
+      // dev là macOS và rasterize chữ khác đủ để một bộ byte không thoả cả hai,
+      // nên chạy golden ở đây sẽ đỏ mà không có nghĩa gì. Muốn cập nhật
+      // baseline thì chạy job `update-goldens` (workflow_dispatch) trên CI,
+      // KHÔNG chạy `--update-goldens` ở máy.
+      "name": "Test · bỏ qua golden",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/",
+      "toolArgs": ["--exclude-tags", "golden"]
+    },
+    {
+      // Chạy golden tại chỗ để nhìn diff bằng mắt khi đang sửa component.
+      // Kết quả KHÔNG dùng làm baseline — xem ghi chú ở cấu hình trên.
+      "name": "Test · chỉ golden (chỉ để xem diff)",
+      "request": "launch",
+      "type": "dart",
+      "program": "test/",
+      "toolArgs": ["--tags", "golden"]
+    }
+  ]
+}
